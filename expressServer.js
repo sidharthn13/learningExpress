@@ -19,17 +19,17 @@ server.get("/test", (req, res) => {
   res.end(`your full name is ${firstName} ${lastName}`);
 });
 
-server.get("/CRUD/getExample", (req, res) => {
+server.get("/GET/users/getExample", (req, res) => {
   res.json(exampleJson);
 });
 
-server.get("/CRUD/getJson", (req, res) => {
+server.get("/GET/users/get-all", (req, res) => {
   let jsonData = fs.readFileSync("./data.json", "utf-8");
   jsonData = JSON.parse(jsonData);
   res.status(200).json(jsonData);
 });
 
-server.post("/CRUD/writeJson", (req, res) => {
+server.post("/POST/users/create", (req, res) => {
   dataInJson = fs.readFileSync("./data.json", "utf-8");
   dataInJson = JSON.parse(dataInJson);
   let incomingData = req.body;
@@ -39,7 +39,7 @@ server.post("/CRUD/writeJson", (req, res) => {
   fs.writeFileSync("./data.json", dataInJson, "utf-8");
   res.status(200).end("success");
 });
-server.put("/CRUD/writeJson", (req, res) => {           //using query params
+server.put("/PUT/users/update", (req, res) => {           //using query params
   dataInJson = fs.readFileSync("./data.json", "utf-8");
   dataInJson = JSON.parse(dataInJson);
   let incomingData = req.body;
@@ -55,7 +55,7 @@ server.put("/CRUD/writeJson", (req, res) => {           //using query params
   res.status(404).end("No user with that ID");
 });
 
-server.delete("/CRUD/writeJson/:id", (req, res) => {          //using url params
+server.delete("/DELETE/users/delete/:id", (req, res) => {          //using url params
   dataInJson = fs.readFileSync("./data.json", "utf-8");
   dataInJson = JSON.parse(dataInJson);
   const id = req.params.id;
