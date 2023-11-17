@@ -18,16 +18,16 @@ server.get("/test", (req, res) => {
   res.end(`your full name is ${firstName} ${lastName}`);
 });
 
-server.get("/GET/users/get-example", (req, res) => {
+server.get("/users/example", (req, res) => {
   res.json(exampleJson);
 });
 
-server.get("/GET/users/get-all", (req, res) => {
+server.get("/users", (req, res) => {
   readJsonData();
   res.status(200).json(dataInJson);
 });
 
-server.post("/POST/users/create", (req, res) => {
+server.post("/users", (req, res) => {
   readJsonData();
   let incomingData = req.body;
   incomingData["id"] = uuid.v4();
@@ -35,11 +35,10 @@ server.post("/POST/users/create", (req, res) => {
   writeJsonData();
   res.status(200).end("success");
 });
-server.put("/PUT/users/update", (req, res) => {
-  //using query params
+server.put("/users/:id", (req, res) => {
   readJsonData();
   let incomingData = req.body;
-  const id = req.query.id;
+  const id = req.params.id;
   for (let i = 0; i < dataInJson.length; i++) {
     if (dataInJson[i]["id"] === id) {
       dataInJson[i]["name"] = incomingData["name"];
@@ -51,7 +50,7 @@ server.put("/PUT/users/update", (req, res) => {
   res.status(404).end("No user with that ID");
 });
 
-server.delete("/DELETE/users/delete/:id", (req, res) => {
+server.delete("/users/:id", (req, res) => {
   //using url params
   readJsonData();
   const id = req.params.id;
