@@ -18,7 +18,7 @@ server.get("/test", (req, res) => {
   res.end(`your full name is ${firstName} ${lastName}`);
 });
 
-server.get("/users/example", (req, res) => {
+server.get("/user/example", (req, res) => {
   res.json(exampleJson);
 });
 
