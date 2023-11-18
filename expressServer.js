@@ -43,10 +43,12 @@ const validateInput = [
     }
     return true;
   }),
+  body().custom((value, { req }) => typeof value.age === 'number')
+                 .withMessage('Age must be strictly a number'),
+ 
   //insert middleware to validate age
-  body('age')
-  .isInt()
-  .withMessage('Age input field receives only integer values'),
+  //body('age').isNumeric().withMessage('Age must be a number'),
+  
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
