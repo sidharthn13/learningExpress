@@ -9,7 +9,7 @@ const {
   checkSchema,
 } = require("express-validator");
 const server = express();
-let data; //for write/append operations    //bad practice to globally declare such variable
+let data; //for write/append operations    
 
 server.get("/", (req, res) => {
   res.end("Welcome to landing page, this is a test");
@@ -45,14 +45,10 @@ const validateInput = [
   }),
   body().custom((value, { req }) => typeof value.age === 'number')
                  .withMessage('Age must be strictly a number'),
- 
-  //insert middleware to validate age
-  //body('age').isNumeric().withMessage('Age must be a number'),
-  
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() }); //prepend return here if app does not work,refer gpt
+      return res.status(400).json({ errors: errors.array() });
     }
     next();
   },
@@ -87,7 +83,7 @@ server.delete("/users/:id", (req, res) => {
   const id = req.params.id;
   for (let i = 0; i < data.length; i++) {
     if (data[i]["id"] === id) {
-      data.splice(i, 1); //use filter
+      data.splice(i, 1);
       writeData();
       res.status(200).end("user record deleted");
     }
@@ -108,3 +104,4 @@ function readData() {
 function writeData() {
   fs.writeFileSync("./data.json", JSON.stringify(data), "utf-8");
 }
+
